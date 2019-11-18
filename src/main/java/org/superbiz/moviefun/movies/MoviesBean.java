@@ -16,6 +16,7 @@
  */
 package org.superbiz.moviefun.movies;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,6 +28,7 @@ import javax.persistence.metamodel.EntityType;
 import java.util.List;
 
 @Repository
+@Slf4j
 public class MoviesBean {
 
     @PersistenceContext(unitName = "movies-entity")
@@ -37,21 +39,25 @@ public class MoviesBean {
     }
 
     public void addMovie(Movie movie) {
+        log.debug("Add movie {}", movie);
         entityManager.persist(movie);
     }
 
-    @Transactional
+    @Transactional(transactionManager = "moviesTransactionManager")
     public void editMovie(Movie movie) {
+        log.debug("Update movie {}", movie);
         entityManager.merge(movie);
     }
 
-    @Transactional
+    @Transactional(transactionManager = "moviesTransactionManager")
     public void deleteMovie(Movie movie) {
+        log.debug("Deletion movie {}", movie);
         entityManager.remove(movie);
     }
 
-    @Transactional
+    @Transactional(transactionManager = "moviesTransactionManager")
     public void deleteMovieId(long id) {
+        log.debug("Deletion movie {}", id);
         Movie movie = entityManager.find(Movie.class, id);
         deleteMovie(movie);
     }

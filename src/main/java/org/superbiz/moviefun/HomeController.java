@@ -1,5 +1,6 @@
 package org.superbiz.moviefun;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
@@ -25,7 +26,7 @@ public class HomeController {
     private final PlatformTransactionManager moviesTransactionManager;
     private final PlatformTransactionManager albumsTransactionManager;
 
-    public HomeController(MoviesBean moviesBean, AlbumsBean albumsBean, MovieFixtures movieFixtures, AlbumFixtures albumFixtures, PlatformTransactionManager moviesTransactionManager, PlatformTransactionManager albumsTransactionManager) {
+    public HomeController(MoviesBean moviesBean, AlbumsBean albumsBean, MovieFixtures movieFixtures, AlbumFixtures albumFixtures, @Qualifier("moviesTransactionManager") PlatformTransactionManager moviesTransactionManager, @Qualifier("albumsTransactionManager") PlatformTransactionManager albumsTransactionManager) {
         this.moviesBean = moviesBean;
         this.albumsBean = albumsBean;
         this.movieFixtures = movieFixtures;

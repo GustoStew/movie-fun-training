@@ -16,6 +16,7 @@
  */
 package org.superbiz.moviefun;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -33,6 +34,7 @@ import java.util.List;
  * @version $Revision$ $Date$
  */
 @Component
+@Slf4j
 public class ActionServlet extends HttpServlet {
 
     private static final long serialVersionUID = -5832176047021911038L;
@@ -54,9 +56,8 @@ public class ActionServlet extends HttpServlet {
 
     private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
-
+        log.debug("Action {}", action);
         if ("Add".equals(action)) {
-
             String title = request.getParameter("title");
             String director = request.getParameter("director");
             String genre = request.getParameter("genre");
